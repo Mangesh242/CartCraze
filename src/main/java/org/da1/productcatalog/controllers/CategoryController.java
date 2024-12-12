@@ -13,6 +13,5 @@ public class CategoryController {
 
     public List<Category> getCategory(long id){
         return null;
-
     }
 }
