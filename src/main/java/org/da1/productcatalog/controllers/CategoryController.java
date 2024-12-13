@@ -14,7 +14,7 @@ import java.util.List;
 public class CategoryController {
 
 
-
+//comment
     @GetMapping("/category")
     public List<Category> getAllCategories(){
         List<Category> categories = new ArrayList<>();
