@@ -8,6 +8,8 @@ import org.da1.productcatalog.models.Product;
 import org.da1.productcatalog.models.State;
 import org.da1.productcatalog.services.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -32,11 +34,17 @@ public class ProductController {
     }
 
     @GetMapping("/products/{id}")
-    public Product getProductById(@PathVariable("id") long id){
+    public ResponseEntity<Product> getProductById(@PathVariable("id") long id){
 //        Product product1=new Product();
+        if(id<1 && id > 20){
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
         Product product1=productService.getProductById(id);
 //        product1.setId(id);
-        return product1;
+        if(product1==null){
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(product1, HttpStatus.OK);
 
     }
 
