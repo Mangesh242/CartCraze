@@ -25,6 +25,7 @@ public class CategoryController {
         return categories;
     }
 
+
     @GetMapping("/category/{id}")
     public Category getCategory(@PathVariable Long id){
 

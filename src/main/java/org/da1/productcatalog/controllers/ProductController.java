@@ -6,6 +6,8 @@ package org.da1.productcatalog.controllers;
 import org.da1.productcatalog.models.Category;
 import org.da1.productcatalog.models.Product;
 import org.da1.productcatalog.models.State;
+import org.da1.productcatalog.services.IProductService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -14,6 +16,9 @@ import java.util.List;
 
 @RestController
 public class ProductController {
+
+    @Autowired
+    IProductService productService;
 
     @GetMapping("/products")
     public List<Product> getAllProducts(){
@@ -28,8 +33,9 @@ public class ProductController {
 
     @GetMapping("/products/{id}")
     public Product getProductById(@PathVariable("id") long id){
-        Product product1=new Product();
-        product1.setId(id);
+//        Product product1=new Product();
+        Product product1=productService.getProductById(id);
+//        product1.setId(id);
         return product1;
 
     }
