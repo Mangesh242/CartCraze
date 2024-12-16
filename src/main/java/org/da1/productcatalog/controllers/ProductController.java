@@ -10,9 +10,9 @@ import org.da1.productcatalog.services.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -25,7 +25,10 @@ public class ProductController {
 
     @GetMapping()
     public List<Product> getAllProducts(){
+        //
         return productService.getAllProducts();
+
+
     }
 
     @GetMapping("/{id}")
@@ -39,7 +42,12 @@ public class ProductController {
         if(product1==null){
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(product1, HttpStatus.OK);
+        MultiValueMap<String,String > headers=new LinkedMultiValueMap<>();
+        headers.add("Accept", "application/json");
+        headers.add("Content-Type", "application/json");
+        headers.add("addedby","Bhudwak");
+
+        return new ResponseEntity<>(product1,headers, HttpStatus.OK);
 
     }
 
