@@ -17,23 +17,18 @@ import java.util.List;
 
 
 @RestController
+@RequestMapping("/products")
 public class ProductController {
 
     @Autowired
     IProductService productService;
 
-    @GetMapping("/products")
+    @GetMapping()
     public List<Product> getAllProducts(){
-        List<Product> products = new ArrayList<>();
-        Product product1=new Product();
-        product1.setId(1L);
-        Category category1=new Category();
-
-        products.add(product1);
-        return products;
+        return productService.getAllProducts();
     }
 
-    @GetMapping("/products/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable("id") long id){
 //        Product product1=new Product();
         if(id<1 && id > 20){
@@ -48,7 +43,7 @@ public class ProductController {
 
     }
 
-    @PostMapping("/products")
+    @PostMapping()
     public Product addProduct(@RequestBody Product product){
         Product product1=new Product();
         product1.setId(product.getId());

@@ -20,10 +20,17 @@ public class ProductService implements IProductService{
     private RestTemplateBuilder restTemplateBuilder;
 
     public List<Product> getAllProducts() {
+        System.out.println("getAllProducts");
+        String url = "https://fakestoreapi.com/products";
+        RestTemplate restTemplate = restTemplateBuilder.build();
+        FakeStoreProductDTO[] fakeStoreProductDTOS= restTemplate.getForObject(url, FakeStoreProductDTO[].class);
         List<Product> products = new ArrayList<>();
-//        https://fakestoreapi.com/products
-
+        for (FakeStoreProductDTO fakeStoreProductDTO : fakeStoreProductDTOS) {
+            Product product = from(fakeStoreProductDTO);
+            products.add(product);
+        }
         return products;
+
     }
 
     public Product getProductById(Long productId) {
